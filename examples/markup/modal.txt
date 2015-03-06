@@ -1,0 +1,20 @@
+<div>
+  <Button onClick={() => this.setState({ show: true }) }>
+    Show
+  </Button>
+  <Modal size='lg' show={this.state.show} 
+    fade onHide={() => this.setState({ show: true })}>
+    <Modal.Header close onClose={() => this.setState({ show: true }) }>
+      Hello
+    </Modal.Header>
+  
+    <Modal.Body>
+      <p>One fine body&hellip;</p>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button>
+        Hi
+      </Button>
+    </Modal.Footer>
+  </Modal>
+</div>

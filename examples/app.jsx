@@ -13,6 +13,7 @@ var Row = RadiumBootstrap.Row;
 var Col = RadiumBootstrap.Col;
 
 var Button = RadiumBootstrap.Button;
+var Close = RadiumBootstrap.Close;
 var Form = RadiumBootstrap.Form;
 var Input = RadiumBootstrap.Input;
 var HelpText = RadiumBootstrap.HelpText;
@@ -20,6 +21,8 @@ var InputGroup = RadiumBootstrap.InputGroup;
 var InputGroupAddon = RadiumBootstrap.InputGroupAddon;
 var Textarea = RadiumBootstrap.Textarea;
 var StaticControl = RadiumBootstrap.StaticControl;
+
+var Modal = RadiumBootstrap.Modal;
 
 // Temporary Style Guide hack
 var reactTools = require('react-tools');
@@ -32,6 +35,7 @@ var gridMarkup = require('raw!./markup/grid.txt');
 var offsetColumnsMarkup = require('raw!./markup/offset-columns.txt');
 var pulledColumnsMarkup = require('raw!./markup/pulled-columns.txt');
 var nestedGridMarkup = require('raw!./markup/nested-grid.txt');
+var modalMarkup = require('raw!./markup/modal.txt');
 
 var MEDIA_QUERIES = {
   sm: '(min-width: 768px)',
@@ -57,11 +61,46 @@ var colDemoStyles = {
 var App = React.createClass({
   mixins: [ StyleResolverMixin, MatchMediaBase ],
 
+  getInitialState() {
+      return {
+          show: false 
+      };
+  },
+  
   render: function () {
+    var closeModal = () => this.setState({ show: false })
 
     return (
       <main>
         <Container fluid={true}>
+
+          <ReactStyleGuide
+            title="Modal"
+            staticMarkup={modalMarkup}
+            expanderActiveText="Hide Code"
+            expanderInactiveText="Show Code"
+          >
+            <Button onClick={() => this.setState({ show: true })}>
+              Show
+            </Button>
+            <Modal size='lg' show={this.state.show} fade onHide={closeModal}>
+              <Modal.Header close onClose={closeModal}>
+                Hello
+              </Modal.Header>
+              
+              <Modal.Body>
+                <p>One fine body&hellip;</p>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button>
+                  Hi
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </ReactStyleGuide>
+
+          
+
           <ReactStyleGuide
             title="Button"
             markupExpandedByDefault={true}
@@ -71,6 +110,12 @@ var App = React.createClass({
             <Button>
               Default
             </Button>
+
+            <Close 
+              style={{float: 'none'}}
+            >
+              <span>&times;</span>
+            </Close>
 
             <Button
               style={{marginLeft: '0.5em'}}

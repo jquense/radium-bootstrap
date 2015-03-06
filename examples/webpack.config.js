@@ -2,6 +2,8 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
+  devtool: 'source-map',
+  
   cache: true,
   entry: {
     app: "./examples/index.jsx"
